@@ -2,10 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>LUXOR — Catálogo Relojes 2024</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* reset y variables */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black:   #0d0d0d;
@@ -17,71 +18,271 @@
       --border:  #2a2a2a;
       --white:   #ffffff;
     }
-    html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--cream); font-family: 'Montserrat', sans-serif; font-weight: 300; line-height: 1.6; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Montserrat', 'Helvetica Neue', 'Segoe UI', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    /* HERO */
+    /* hero */
     .hero {
-      position: relative; min-height: 420px; display: flex; align-items: center;
-      justify-content: center; background: linear-gradient(135deg, #0d0d0d 55%, #1c1510 100%);
-      overflow: hidden; padding: 60px 40px; text-align: center;
+      position: relative;
+      min-height: 420px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      background: -webkit-linear-gradient(135deg, #0d0d0d 55%, #1c1510 100%);
+      background: linear-gradient(135deg, #0d0d0d 55%, #1c1510 100%);
+      overflow: hidden;
+      padding: 60px 40px;
+      text-align: center;
     }
     .hero::before {
-      content: ''; position: absolute; inset: 0;
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: -webkit-radial-gradient(80% 40%, ellipse, rgba(201,168,76,.12) 0%, transparent 70%);
       background: radial-gradient(ellipse 60% 70% at 80% 40%, rgba(201,168,76,.12) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-crown { font-size: 32px; color: var(--gold); display: block; margin-bottom: 12px; letter-spacing: 4px; }
     .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 6px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
-    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 10vw, 110px); font-weight: 300; letter-spacing: 12px; color: var(--white); line-height: 1; margin-bottom: 20px; }
+    .hero-title {
+      font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+      font-size: clamp(64px, 10vw, 110px);
+      font-weight: 300;
+      letter-spacing: 12px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
     .hero-sub { font-size: 11px; font-weight: 500; letter-spacing: 5px; color: var(--muted); text-transform: uppercase; }
     .hero-sub span { color: var(--gold); margin: 0 10px; }
 
-    /* DIVIDER */
-    .divider { display: flex; align-items: center; gap: 16px; padding: 32px 60px; color: var(--gold); font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; }
-    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    /* divider */
+    .divider {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 16px;
+      padding: 32px 60px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 1px;
+      background: -webkit-linear-gradient(left, transparent, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
 
-    /* GRID */
+    /* grid */
     .catalog-section { padding: 0 40px 60px; }
-    .watch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
-
-    /* CARD */
-    .watch-card { background: var(--card); display: flex; flex-direction: column; position: relative; overflow: hidden; cursor: pointer; transition: background .3s; }
+    .watch-grid {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .watch-card {
+      background: var(--card);
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-transition: background .3s;
+      transition: background .3s;
+      width: 100%;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 280px;
+      -ms-flex: 1 1 280px;
+      flex: 1 1 280px;
+      max-width: 100%;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+    /* para evitar borde doble en algunos casos */
+    .watch-card:nth-child(2n) { border-right: none; }
     .watch-card:hover { background: #1c1c1c; }
-    .watch-card:hover .card-img img { transform: scale(1.04); }
+    .watch-card:hover .card-img img {
+      -webkit-transform: scale(1.04);
+      transform: scale(1.04);
+    }
 
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      z-index: 2;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+    }
 
-    .card-badge { position: absolute; top: 16px; left: 16px; background: var(--gold); color: var(--black); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; z-index: 2; }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #111;
+      overflow: hidden;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      -webkit-transition: -webkit-transform .5s cubic-bezier(.25,.46,.45,.94);
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+      display: block;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
 
-    .card-img { width: 100%; aspect-ratio: 1 / 1; background: #111; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.25,.46,.45,.94); display: block; }
-
-    .card-body { padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .card-body { padding: 24px 24px 16px; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; gap: 6px; -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; }
     .card-collection { font-size: 9px; font-weight: 600; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; }
-    .card-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: 1px; }
+    .card-name { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: 1px; }
     .card-desc { font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.7; margin-top: 4px; }
 
-    .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-top: 1px solid var(--border); margin-top: auto; }
-    .card-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--gold-lt); letter-spacing: 1px; }
+    .card-footer {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .card-price { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-size: 28px; font-weight: 300; color: var(--gold-lt); letter-spacing: 1px; }
     .card-price sup { font-size: 14px; vertical-align: super; }
-
-
 
     .editable { cursor: text; }
     .editable:focus { outline: none; border-bottom: 1px solid var(--gold); }
 
-    /* FOOTER */
-    .footer-strip { border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 60px; padding: 40px; flex-wrap: wrap; }
-    .badge-item { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted); font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; text-align: center; }
-    .badge-item svg { color: var(--gold); }
+    /* footer */
+    .footer-strip {
+      border-top: 1px solid var(--border);
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 40px;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    .badge-item {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .badge-item svg { color: var(--gold); width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.4; -webkit-flex-shrink: 0; -ms-flex-negative: 0; flex-shrink: 0; }
     .footer-tagline { text-align: center; padding: 24px 40px 48px; font-size: 11px; font-weight: 500; letter-spacing: 8px; color: var(--muted); text-transform: uppercase; }
     .footer-tagline span { color: var(--gold); }
 
+    /* responsive */
     @media (max-width: 640px) {
       .catalog-section { padding: 0 0 40px; }
-      .hero { padding: 48px 24px; }
-      .divider { padding: 24px; }
+      .hero { padding: 48px 24px; min-height: 340px; }
+      .divider { padding: 24px; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }
       .footer-strip { gap: 32px; padding: 32px 24px; }
+      .watch-card { -webkit-flex: 1 1 100%; -ms-flex: 1 1 100%; flex: 1 1 100%; border-right: none; }
+      .watch-card:nth-child(2n) { border-right: none; }
+    }
+    /* para safari en iphone se asegura que el grid no se desborde */
+    @media screen and (max-width: 480px) {
+      .watch-grid { border-left: none; border-right: none; }
+      .watch-card { border-left: none; border-right: none; }
     }
   </style>
 </head>
@@ -105,7 +306,7 @@
     <article class="watch-card">
       <span class="card-badge">Destacado</span>
       <div class="card-img">
-        <img src="img/img1.webp" alt="Engeen Negro Azul">
+        <img src="img/img1.webp" alt="Engeen Negro Azul" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Sport</p>
@@ -114,14 +315,13 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">50.000</span></span>
-        
       </div>
     </article>
 
     <!-- 2 — ENGEEN Dorado Negro -->
     <article class="watch-card">
       <div class="card-img">
-        <img src="img/2.jpg" alt="Engeen Dorado Negro">
+        <img src="img/2.jpg" alt="Engeen Dorado Negro" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Gold</p>
@@ -130,14 +330,13 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">50.000</span></span>
-        
       </div>
     </article>
 
     <!-- 3 — ENGEEN Plata Blanco -->
     <article class="watch-card">
       <div class="card-img">
-        <img src="img/3.webp" alt="Engeen Plata Blanco">
+        <img src="img/3.webp" alt="Engeen Plata Blanco" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Classic</p>
@@ -146,14 +345,13 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">50.000</span></span>
-        
       </div>
     </article>
 
     <!-- 4 — ENGEEN Negro Carbón -->
     <article class="watch-card">
       <div class="card-img">
-        <img src="img/1.jpg" alt="Engeen Negro Carbón">
+        <img src="img/1.jpg" alt="Engeen Negro Carbón" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Dark</p>
@@ -162,7 +360,6 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">50.000</span></span>
-        
       </div>
     </article>
 
@@ -170,7 +367,7 @@
     <article class="watch-card">
       <span class="card-badge">Nuevo</span>
       <div class="card-img">
-        <img src="img/reloj_5.jpg" alt="Chrono Dorado Oro">
+        <img src="img/reloj_5.jpg" alt="Chrono Dorado Oro" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Prestige</p>
@@ -179,14 +376,13 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">40.000</span></span>
-        
       </div>
     </article>
 
     <!-- 6 — Chrono Bicolor Azul -->
     <article class="watch-card">
       <div class="card-img">
-        <img src="img/reloj_6.jpg" alt="Chrono Bicolor Azul">
+        <img src="img/reloj_6.jpg" alt="Chrono Bicolor Azul" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Sport Prestige</p>
@@ -195,14 +391,13 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">40.000</span></span>
-        
       </div>
     </article>
 
     <!-- 7 — Chrono Plata Total -->
     <article class="watch-card">
       <div class="card-img">
-        <img src="img/reloj_7.jpg" alt="Chrono Plata Total">
+        <img src="img/reloj_7.jpg" alt="Chrono Plata Total" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Silver</p>
@@ -211,7 +406,6 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">40.000</span></span>
-        
       </div>
     </article>
 
@@ -219,7 +413,7 @@
     <article class="watch-card">
       <span class="card-badge">Ed. Limitada</span>
       <div class="card-img">
-        <img src="img/reloj_8.jpg" alt="Chrono Bicolor Azul Gold">
+        <img src="img/reloj_8.jpg" alt="Chrono Bicolor Azul Gold" loading="lazy">
       </div>
       <div class="card-body">
         <p class="card-collection">Colección Gold Fusion</p>
@@ -228,7 +422,6 @@
       </div>
       <div class="card-footer">
         <span class="card-price"><sup>$</sup><span class="editable" contenteditable="false">40.000</span></span>
-        
       </div>
     </article>
 
@@ -237,27 +430,39 @@
 
 <div class="footer-strip">
   <div class="badge-item">
-    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-    <span>Calidad<br>Superior</span>
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+    <span>Calidad<br />Superior</span>
   </div>
   <div class="badge-item">
-    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-    <span>Envíos<br>Seguros</span>
+    <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <span>Envíos<br />Seguros</span>
   </div>
   <div class="badge-item">
-    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <span>Pago<br>Seguro</span>
+    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <span>Pago<br />Seguro</span>
   </div>
 </div>
 
 <p class="footer-tagline">♛ &nbsp; Tu tiempo, <span>tu estilo.</span></p>
 
 <script>
-  document.querySelectorAll('.editable').forEach(el => {
-    el.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); el.blur(); }
-    });
-  });
+  (function() {
+    // compatibilidad con Safari y Android: asegurar que contenteditable funcione bien
+    var editables = document.querySelectorAll('.editable');
+    for (var i = 0; i < editables.length; i++) {
+      var el = editables[i];
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          e.preventDefault();
+          this.blur();
+        }
+      });
+      // para evitar que el cursor se salga del elemento en dispositivos táctiles
+      el.addEventListener('touchstart', function(e) {
+        // permitir edición normal
+      });
+    }
+  })();
 </script>
 
 </body>
