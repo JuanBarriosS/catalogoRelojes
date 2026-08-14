@@ -102,6 +102,12 @@
       background: -webkit-linear-gradient(left, transparent, var(--gold), transparent);
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
+    /* fallback de gap para Safari < 14.1 / iOS < 14.5 */
+    .divider::before { margin-right: 16px; }
+    .divider::after { margin-left: 16px; }
+    @supports (gap: 1px) {
+      .divider::before, .divider::after { margin: 0; }
+    }
 
     /* grid */
     .catalog-section { padding: 0 40px 60px; }
@@ -167,21 +173,31 @@
 
     .card-img {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      /* fallback para navegadores sin soporte de aspect-ratio (Safari < 15) */
+      position: relative;
+      height: 0;
+      padding-bottom: 100%;
       background: #111;
       overflow: hidden;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
+    }
+    @supports (aspect-ratio: 1 / 1) {
+      .card-img {
+        height: auto;
+        padding-bottom: 0;
+        aspect-ratio: 1 / 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
     }
     .card-img img {
       width: 100%;
@@ -194,8 +210,20 @@
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
     }
+    /* posicionamiento absoluto solo cuando se usa el fallback (padding-bottom hack) */
+    @supports not (aspect-ratio: 1 / 1) {
+      .card-img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
 
     .card-body { padding: 24px 24px 16px; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; gap: 6px; -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; }
+    .card-body > * + * { margin-top: 6px; }
+    @supports (gap: 1px) {
+      .card-body > * + * { margin-top: 0; }
+    }
     .card-collection { font-size: 9px; font-weight: 600; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; }
     .card-name { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-size: 26px; font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: 1px; }
     .card-desc { font-size: 11px; font-weight: 300; color: var(--muted); line-height: 1.7; margin-top: 4px; }
@@ -244,6 +272,11 @@
       -ms-flex-wrap: wrap;
       flex-wrap: wrap;
     }
+    /* fallback de gap con margin lateral en cada item */
+    .badge-item { margin: 0 30px; }
+    @supports (gap: 1px) {
+      .badge-item { margin: 0; }
+    }
     .badge-item {
       display: -webkit-box;
       display: -webkit-flex;
@@ -266,6 +299,10 @@
       text-transform: uppercase;
       text-align: center;
     }
+    .badge-item svg { margin-bottom: 10px; }
+    @supports (gap: 1px) {
+      .badge-item svg { margin-bottom: 0; }
+    }
     .badge-item svg { color: var(--gold); width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.4; -webkit-flex-shrink: 0; -ms-flex-negative: 0; flex-shrink: 0; }
     .footer-tagline { text-align: center; padding: 24px 40px 48px; font-size: 11px; font-weight: 500; letter-spacing: 8px; color: var(--muted); text-transform: uppercase; }
     .footer-tagline span { color: var(--gold); }
@@ -276,6 +313,10 @@
       .hero { padding: 48px 24px; min-height: 340px; }
       .divider { padding: 24px; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }
       .footer-strip { gap: 32px; padding: 32px 24px; }
+      .badge-item { margin: 0 16px; }
+      @supports (gap: 1px) {
+        .badge-item { margin: 0; }
+      }
       .watch-card { -webkit-flex: 1 1 100%; -ms-flex: 1 1 100%; flex: 1 1 100%; border-right: none; }
       .watch-card:nth-child(2n) { border-right: none; }
     }
